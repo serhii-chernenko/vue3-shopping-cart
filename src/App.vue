@@ -12,10 +12,12 @@ const products = ref([
   },
 ]);
 
+const qtyMinValue = 0;
+
 const total = computed(() => {
   return Math.round(
-    products.value.reduce((acc, product) => acc + product.price, 0) / 100
-  );
+    products.value.reduce((acc, product) => acc + product.price * product.quantity, 0) / 100
+  ).toFixed(2);
 });
 
 function increaseQuantity(product) {
@@ -23,7 +25,7 @@ function increaseQuantity(product) {
 }
 
 function decreaseQuantity(product) {
-  product.quantity -= product.quantity <= 1 ? 0 : 1;
+  product.quantity -= product.quantity <= qtyMinValue ? 0 : 1;
 }
 
 const isOdd = (index) => index % 2;
@@ -55,7 +57,7 @@ const isOdd = (index) => index % 2;
                   'disabled:dark:bg-gray-700': isOdd(index)
                  }"
                 @click="decreaseQuantity(product)"
-                :disabled="product.quantity <= 1"
+                :disabled="product.quantity <= qtyMinValue"
               >
                 -
               </button>
@@ -68,7 +70,7 @@ const isOdd = (index) => index % 2;
               </button>
             </span>
             <span class="w-16 text-right">
-              ${{ (product.price * product.quantity) / 100 }}
+              ${{ ((product.price * product.quantity) / 100).toFixed(2) }}
             </span>
           </span>
         </li>
