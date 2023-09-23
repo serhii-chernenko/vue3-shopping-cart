@@ -1,0 +1,4 @@
+- [ ] The total price is updated when a quantity is changed.
+- [ ] The prices are show with 2 decimals.
+- [ ] The total sum of all the items is correct.
+- [ ] The user is not able to go under 0 items.
